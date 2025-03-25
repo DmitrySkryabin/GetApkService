@@ -4,7 +4,14 @@ import os
 from fastapi import FastAPI
 from app.routers import apk_router
 
-app = FastAPI()
+if config.ROOT_PATH is not None:
+    app = FastAPI(
+        root_path=f'/{config.ROOT_PATH}',
+        docs_url='/docs',
+        openapi_url='/openapi.json'
+        )
+else:
+    app = FastAPI()
 
 app.include_router(apk_router.router)
 
